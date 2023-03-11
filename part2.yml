@@ -1,0 +1,35 @@
+---
+ - name: Connection test
+   gather_facts: yes
+   hosts: Arista
+   become: yes
+   vars:
+       ansible_connection: network_cli
+       ansible_network_os: eos
+       ansible_user: admin
+       ansible_password: W3lcome123!
+       ansible_become: yes
+       ansible_become_method: enable
+       ansible_become_pass: password
+   
+   tasks:
+    - name: Gather Facts
+      arista.eos.eos_facts:
+        gather_subset: all
+      register: facts_output
+
+    - name: create output directory
+      file:
+        path: ./output
+        state: directory
+
+    - name: create backup directory
+      file:
+        path: ./backups
+        state: directory
+
+    - name: Save router facts to file as router hostname
+      local_action: shell echo ""{{ facts_output }}"" > ./output/"{{ ansible_net_hostname }}"
+
+    - name: compress config folder and save as current date
+      local_action: shell tar czf ./backups/$(date +%Y%m%d).tar.gz ./output

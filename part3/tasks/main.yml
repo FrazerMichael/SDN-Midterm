@@ -1,0 +1,23 @@
+
+- name: Merge provided configuration with device configuration
+  arista.eos.eos_vlans:
+    config:
+    - vlan_id: 10
+      name: ten
+    - vlan_id: 100
+      name: one-hundred
+    - vlan_id: 20
+      state: deleted
+
+- name: Merge provided configuration with device configuration.
+  arista.eos.eos_l2_interfaces:
+    config:
+    - name: Ethernet3
+      mode: access
+      access:
+        vlan: 10
+    - name: Ethernet2
+      mode: trunk
+      trunk:
+        native_vlan: 100
+    state: merged

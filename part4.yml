@@ -1,0 +1,24 @@
+---
+ - name: Connection test
+   gather_facts: yes
+   hosts: Arista
+   become: yes
+   vars:
+       ansible_connection: network_cli
+       ansible_network_os: eos
+       ansible_user: admin
+       ansible_password: W3lcome123!
+       ansible_become: yes
+       ansible_become_method: enable
+       ansible_become_pass: password
+   
+   tasks:
+   - name: Run show interfaces command 
+     arista.eos.eos_command:
+      commands: 
+        - command: show interfaces
+          output: json
+     register: interfaces
+
+   - name: Print interfaces information
+     debug: msg="{{ interfaces["stdout"][0]["interfaces"] }}"

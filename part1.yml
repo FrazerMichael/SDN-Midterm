@@ -1,0 +1,35 @@
+---
+ - name: Connection test
+   gather_facts: no
+   hosts: "{{ host }}"
+   become: yes
+   vars_prompt:
+
+     - name: host
+       prompt: Enter the hostname or ip address of the device you would like to connect to
+       private: false
+
+     - name: portnumber
+       prompt: Enter the port number for the SSH connection
+       private: false
+       default: "22"
+
+     - name: user
+       prompt: Enter the username you would like to connect with
+       private: false
+
+     - name: password
+       prompt: Enter the password for user
+       private: false
+
+   vars:
+       ansible_connection: network_cli
+       ansible_network_os: eos
+       ansible_host: "{{ host }}"
+       ansible_port: "{{ portnumber }}"
+       ansible_user: "{{ user }}"
+       ansible_password: "{{ password }}"
+   
+   tasks:
+   - name: Test connection to device
+     ping:

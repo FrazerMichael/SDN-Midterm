@@ -1,0 +1,4 @@
+---
+- hosts: Arista
+  roles:
+    - role: '/home/SHERNET/frazermi/Documents/Ansible/part3'
