@@ -3,7 +3,7 @@
     description {{ each.description }}
     ip address {{ each.ip_address }}{{ each.subnet_mask }}
     ipv6 address {{ each.ipv6_address }}
-{{% if each.ipv6_enable %}}
+{% if each.ipv6_enable %}
     ipv6 enable
 {% endif %}
 {% endfor %}
