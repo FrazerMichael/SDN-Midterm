@@ -1,7 +1,7 @@
 ---
  - name: Connection test
    gather_facts: yes
-   hosts: Arista
+   hosts: 192.168.122.30
    become: yes
    vars:
        ansible_connection: network_cli
